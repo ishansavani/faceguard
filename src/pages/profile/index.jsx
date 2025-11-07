@@ -14,7 +14,6 @@ const Profile = () => {
   }, [contextValues]);
 
   return (
-    <Layout>
       <div className="p-6 bg-gray-50 h-full">
         <div className="bg-white rounded-2xl shadow-lg p-8 w-full flex flex-col justify-center">
           <div className="text-2xl font-semibold text-gray-500">
@@ -37,7 +36,6 @@ const Profile = () => {
           </div>
         </div>
       </div>
-    </Layout>
   );
 };
 

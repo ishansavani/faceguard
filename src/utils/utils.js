@@ -1,5 +1,7 @@
+import safeLocalStorage from "./safeLocalStorage";
+
 export default class Utils {
-  static cacheStorage = window.localStorage;
+  static cacheStorage = safeLocalStorage;
 
   static isObject(obj) {
     if (!obj) return false;
@@ -22,22 +24,25 @@ export default class Utils {
   static getCachedVariables(key) {
     try {
       const cachedVariables = {};
-      for (const item of Object.keys(this.cacheStorage)) {
-        const itemValue = this.cacheStorage.getItem(item);
-        const base64Regex =
-          /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
-        if (base64Regex.test(item)) {
-          const decodedKey = window.atob(item);
-          const decodedValue = decodeURIComponent(window.atob(itemValue));
-          cachedVariables[decodedKey] = this.isJSONString(decodedValue)
-            ? JSON.parse(decodedValue)
-            : decodedValue;
-        } else {
-          cachedVariables[item] = this.isJSONString(
-            decodeURIComponent(itemValue)
-          )
-            ? JSON.parse(decodeURIComponent(itemValue))
-            : decodeURIComponent(itemValue);
+      for (let i = 0; i < this.cacheStorage.length; i++) {
+        const item = this.cacheStorage.key(i);
+        if (item) {
+          const itemValue = this.cacheStorage.getItem(item);
+          const base64Regex =
+            /^([0-9a-zA-Z+/]{4})*(([0-9a-zA-Z+/]{2}==)|([0-9a-zA-Z+/]{3}=))?$/;
+          if (base64Regex.test(item)) {
+            const decodedKey = window.atob(item);
+            const decodedValue = decodeURIComponent(window.atob(itemValue));
+            cachedVariables[decodedKey] = this.isJSONString(decodedValue)
+              ? JSON.parse(decodedValue)
+              : decodedValue;
+          } else {
+            cachedVariables[item] = this.isJSONString(
+              decodeURIComponent(itemValue)
+            )
+              ? JSON.parse(decodeURIComponent(itemValue))
+              : decodeURIComponent(itemValue);
+          }
         }
       }
       return key ? cachedVariables?.[key] : cachedVariables;

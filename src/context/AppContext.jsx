@@ -21,28 +21,38 @@ export const AppProvider = ({ children }) => {
   const shownErrorStatusSet = new Set();
 
   React.useEffect(() => {
-    const cachedVariables = Utils.getCachedVariables();
-    for (const key of Object.keys(cachedVariables)) {
-      setStore({ [key]: cachedVariables[key] });
+    try {
+      const cachedVariables = Utils.getCachedVariables();
+      for (const key of Object.keys(cachedVariables)) {
+        setStore({ [key]: cachedVariables[key] });
+      }
+    } catch (error) {
+      console.error("Failed to retrieve cached variables:", error);
+    } finally {
+      setStore({ initialLoadComplete: true, isLoading: false });
     }
   }, []);
 
   const setStore = (data = {}, cache = false) => {
-    updateStore((prevStore) => ({ ...prevStore, ...data }));
-    if (cache) {
-      for (const key of Object.keys(data)) {
-        const value = data?.[key];
-        if (value || value === false || value === 0) {
-          Utils.cacheStorage.setItem(
-            window.btoa(key),
-            Utils.isObject(value)
-              ? Utils.toBase64Unicode(JSON.stringify(value))
-              : window.btoa(value)
-          );
-        } else {
-          Utils.cacheStorage.removeItem(window.btoa(key));
+    try {
+      updateStore((prevStore) => ({ ...prevStore, ...data }));
+      if (cache) {
+        for (const key of Object.keys(data)) {
+          const value = data?.[key];
+          if (value || value === false || value === 0) {
+            Utils.cacheStorage.setItem(
+              window.btoa(key),
+              Utils.isObject(value)
+                ? Utils.toBase64Unicode(JSON.stringify(value))
+                : window.btoa(value)
+            );
+          } else {
+            Utils.cacheStorage.removeItem(window.btoa(key));
+          }
         }
       }
+    } catch (error) {
+      console.error("Failed to set store and cache data:", error);
     }
   };
 
@@ -133,16 +143,24 @@ export const AppProvider = ({ children }) => {
   };
 
   React.useEffect(() => {
-    const cachedVariables = Utils.getCachedVariables();
+    try {
+      const cachedVariables = Utils.getCachedVariables();
 
-    setStore(
-      {
-        ...cachedVariables,
+      setStore(
+        {
+          ...cachedVariables,
+          initialLoadComplete: true,
+          isLoading: false,
+        },
+        true
+      );
+    } catch (error) {
+      console.error("Failed to retrieve cached variables:", error);
+      setStore({
         initialLoadComplete: true,
         isLoading: false,
-      },
-      true
-    );
+      });
+    }
   }, []);
 
   return (

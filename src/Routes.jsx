@@ -12,6 +12,8 @@ import Profile from "./pages/profile";
 import Loading from "./components/ui/Loading";
 import LazyLoading from "./components/ui/LazyLoading";
 import { AuthWrapper } from "./AuthWrapper";
+import DeepFakeAnalysis from "./pages/deepFakeAnalysis/DeepFakeAnalysis";
+import History from "./pages/deepFakeAnalysis/History";
 
 const PublicRoute = ({ children }) => {
   const contextValues = React.useContext(AppContext);
@@ -86,6 +88,22 @@ const Routes = () => {
           element={
             <AuthWrapper>
               <Dashboard />
+            </AuthWrapper>
+          }
+        />
+        <Route
+          path={constants.route.deepfakeAnalysis}
+          element={
+            <AuthWrapper>
+              <DeepFakeAnalysis />
+            </AuthWrapper>
+          }
+        />
+        <Route
+          path={constants.route.history}
+          element={
+            <AuthWrapper>
+              <History />
             </AuthWrapper>
           }
         />
