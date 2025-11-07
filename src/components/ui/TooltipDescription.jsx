@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Modal, Popover } from "antd";
 import DOMPurify from "dompurify";
 

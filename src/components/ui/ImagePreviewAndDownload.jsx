@@ -1,6 +1,5 @@
-import React from 'react';
 import { Image } from 'antd';
-import Icon from 'components/AppIcon';
+import Icon from '../AppIcon'
 
 const ImagePreview = ({ src, width = 100, height }) => {
   const onDownload = () => {

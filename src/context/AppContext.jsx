@@ -20,19 +20,6 @@ export const AppProvider = ({ children }) => {
   const navigate = useNavigate();
   const shownErrorStatusSet = new Set();
 
-  React.useEffect(() => {
-    try {
-      const cachedVariables = Utils.getCachedVariables();
-      for (const key of Object.keys(cachedVariables)) {
-        setStore({ [key]: cachedVariables[key] });
-      }
-    } catch (error) {
-      console.error("Failed to retrieve cached variables:", error);
-    } finally {
-      setStore({ initialLoadComplete: true, isLoading: false });
-    }
-  }, []);
-
   const setStore = (data = {}, cache = false) => {
     try {
       updateStore((prevStore) => ({ ...prevStore, ...data }));
@@ -55,6 +42,26 @@ export const AppProvider = ({ children }) => {
       console.error("Failed to set store and cache data:", error);
     }
   };
+
+  React.useEffect(() => {
+    try {
+      const cachedVariables = Utils.getCachedVariables();
+      setStore(
+        {
+          ...cachedVariables,
+          initialLoadComplete: true,
+          isLoading: false,
+        },
+        true
+      );
+    } catch (error) {
+      console.error("Failed to retrieve cached variables:", error);
+      setStore({
+        initialLoadComplete: true,
+        isLoading: false,
+      });
+    }
+  }, []);
 
   const apiRequest = async ({
     method = "GET",
@@ -141,27 +148,6 @@ export const AppProvider = ({ children }) => {
       console.log(error);
     }
   };
-
-  React.useEffect(() => {
-    try {
-      const cachedVariables = Utils.getCachedVariables();
-
-      setStore(
-        {
-          ...cachedVariables,
-          initialLoadComplete: true,
-          isLoading: false,
-        },
-        true
-      );
-    } catch (error) {
-      console.error("Failed to retrieve cached variables:", error);
-      setStore({
-        initialLoadComplete: true,
-        isLoading: false,
-      });
-    }
-  }, []);
 
   return (
     <AppContext.Provider
