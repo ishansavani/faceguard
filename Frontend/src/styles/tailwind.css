@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Google Fonts Import */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Custom CSS Variables */
+:root {
+  /* Primary Colors */
+  --color-primary-100: #E0E7FF; /* indigo-100 */
+  --color-primary-200: #C7D2FE; /* indigo-200 */
+  --color-primary-300: #A5B4FC; /* indigo-300 */
+  --color-primary-400: #818CF8; /* indigo-400 */
+  --color-primary-500: #6366F1; /* indigo-500 */
+  --color-primary-600: #4F46E5; /* indigo-600 */
+  --color-primary-700: #4338CA; /* indigo-700 */
+  --color-primary-800: #3730A3; /* indigo-800 */
+  --color-primary-900: #312E81; /* indigo-900 */
+  
+  /* Neutral Colors */
+  --color-background: #F9FAFB; /* gray-50 */
+  --color-gray-100: #F3F4F6; /* gray-100 */
+  --color-surface: #FFFFFF; /* white */
+  --color-border: #E5E7EB; /* gray-200 */
+  --color-text-primary: #111827; /* gray-900 */
+  --color-text-secondary: #6B7280; /* gray-500 */
+  --color-text-tertiary: #9CA3AF; /* gray-400 */
+  
+  /* Semantic Colors */
+  --color-success: #059669; /* emerald-600 */
+  --color-warning: #F59E0B; /* amber-500 */
+  --color-error: #E11D48; /* rose-600 */
+  --color-info: #3B82F6; /* blue-500 */
+}
+
+/* Animation Classes */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Custom Component Classes */
+@layer components {
+  /* Button Styles */
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none;
+  }
+  
+  .btn-primary {
+    @apply bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500;
+  }
+  
+  .btn-secondary {
+    @apply bg-white text-gray-900 border border-gray-300 hover:bg-gray-50 focus:ring-primary-500;
+  }
+  
+  .btn-outline {
+    @apply border border-primary-600 text-primary-600 bg-transparent hover:bg-primary-50 focus:ring-primary-500;
+  }
+  
+  .btn-ghost {
+    @apply text-primary-600 bg-transparent hover:bg-primary-50 focus:ring-primary-500;
+  }
+  
+  .btn-destructive {
+    @apply bg-rose-600 text-white hover:bg-rose-700 focus:ring-rose-500;
+  }
+  
+  /* Input Styles */
+  /* .input {
+    @apply block w-full rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 disabled:opacity-50 disabled:bg-gray-100;
+  } */
+  
+  /* Card Styles */
+  .card {
+    @apply bg-white rounded-lg border border-gray-200 overflow-hidden;
+  }
+  
+  .card-interactive {
+    @apply transition-shadow hover:shadow-md cursor-pointer;
+  }
+  
+  .card-elevated {
+    @apply shadow-md;
+  }
+}
