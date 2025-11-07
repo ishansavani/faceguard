@@ -4,24 +4,13 @@ import constants from "../utils/constants";
 import Icon from "../components/AppIcon";
 
 const Sidebar = ({ className = "", ...props }) => {
-  const [isCollapsed, setIsCollapsed] = React.useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
   const menuItems = [
     {
-      name: "Dashboard",
-      icon: "LayoutDashboard",
-      path: constants.route.dashboard,
-    },
-    {
-      name: "Profile",
-      icon: "User",
-      path: constants.route.profile,
-    },
-    {
       name: "DeepFake Analysis",
-      icon: "VideoCamera",
+      icon: "ScanFace",
       path: constants.route.deepfakeAnalysis,
     },
     {
@@ -29,38 +18,35 @@ const Sidebar = ({ className = "", ...props }) => {
       icon: "History",
       path: constants.route.history,
     },
+    {
+      name: "Profile",
+      icon: "User",
+      path: constants.route.profile,
+    },
   ];
 
   return (
     <div
       className={`hidden md:flex md:flex-col md:fixed md:inset-y-0 
         bg-white border-r border-gray-200
-        transition-width duration-300 ease-in-out ${
-          isCollapsed ? "w-16" : "w-64"
-        } ${className}`}
+        transition-width duration-300 ease-in-out w-64 ${className}`}
       {...props}
     >
       <div className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-primary-700">
         {/* Logo */}
-        <div
-          className={`flex items-center h-16 flex-shrink-0 px-4 border-b border-gray-200 ${
-            isCollapsed ? "justify-center" : ""
-          }`}
-        >
+        <div className="flex items-center h-16 flex-shrink-0 px-4 border-b border-gray-200">
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => navigate(constants.route.dashboard)}
+            onClick={() => navigate(constants.route.deepfakeAnalysis)}
           >
             <img
-              className="w-auto h-14"
+              className="w-auto h-10"
               src="/assets/logo/logo3.png"
               alt="FaceGuard Logo"
             />
-            {!isCollapsed && (
-              <span className="ml-2 text-xl font-semibold text-gray-300 uppercase">
-                FaceGuard
-              </span>
-            )}
+            <span className="ml-2 text-xl font-semibold text-gray-300 uppercase">
+              FaceGuard
+            </span>
           </div>
         </div>
 
@@ -77,7 +63,7 @@ const Sidebar = ({ className = "", ...props }) => {
                   isActive
                     ? "bg-primary-600 text-white"
                     : "text-gray-300 hover:bg-primary-600 hover:text-white"
-                } ${isCollapsed ? "justify-center" : ""}`}
+                }`}
               >
                 <Icon
                   name={item.icon}
@@ -86,9 +72,7 @@ const Sidebar = ({ className = "", ...props }) => {
                     isActive ? "text-white" : "text-gray-300"
                   } transition-colors duration-200`}
                 />
-                {!isCollapsed && (
-                  <span className="ml-3 text-sm font-medium">{item.name}</span>
-                )}
+                <span className="ml-3 text-sm font-medium">{item.name}</span>
               </div>
             );
           })}

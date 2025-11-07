@@ -12,9 +12,14 @@ function Header({ variant = "default", className = "", ...props }) {
 
   const navItems = [
     {
-      name: "Dashboard",
-      icon: "LayoutDashboard",
-      path: constants.route.dashboard,
+      name: "DeepFake Analysis",
+      icon: "ScanFace",
+      path: constants.route.deepfakeAnalysis,
+    },
+    {
+      name: "History",
+      icon: "History",
+      path: constants.route.history,
     },
     {
       name: "Profile",
@@ -57,7 +62,7 @@ function Header({ variant = "default", className = "", ...props }) {
                   authToken: null,
                   isAdmin: false,
                 },
-                true
+                true,
               );
             }}
           >
@@ -72,7 +77,7 @@ function Header({ variant = "default", className = "", ...props }) {
   return (
     <header
       className={`
-        bg-white border-b border-gray-200 relative
+        md:bg-white bg-primary-700 border-b border-gray-200 relative
         ${isCompact ? "py-2" : "h-16 pt-2"}
         ${className}
       `}
@@ -82,12 +87,15 @@ function Header({ variant = "default", className = "", ...props }) {
         <div className="flex justify-between items-center">
           {/* Logo and Navigation */}
           <div className="flex items-center">
-            <Link to={constants.route.dashboard} className="flex items-center">
+            <Link
+              to={constants.route.deepfakeAnalysis}
+              className="flex items-center"
+            >
               <div className="md:hidden text-primary-600 mr-2">
                 <img
-                  src="/assets/images/logo/eternitai-x-icon.jpeg"
-                  alt="Logo"
-                  className="w-8 h-8 rounded-full"
+                  className="w-auto h-10"
+                  src="/assets/logo/logo3.png"
+                  alt="FaceGuard Logo"
                 />
               </div>
             </Link>
@@ -99,7 +107,7 @@ function Header({ variant = "default", className = "", ...props }) {
             >
               <div
                 className="px-3 py-2 rounded-md text-sm md:text-lg 
-                   font-medium flex items-center text-primary-700 bg-primary-50"
+                   font-medium flex items-center md:text-primary-700 text-white bg-primary-50"
               >
                 <Icon
                   name={contextValues?.store?.headerData?.icon}
@@ -133,7 +141,7 @@ function Header({ variant = "default", className = "", ...props }) {
             <div className="md:hidden">
               <button
                 type="button"
-                className="p-2 text-gray-500 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
+                className="p-2 md:text-gray-500 text-gray-300 rounded-md hover:text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-primary-500"
                 onClick={toggleMobileMenu}
                 aria-expanded={isMobileMenuOpen}
                 aria-label="Main menu"
@@ -176,7 +184,7 @@ function Header({ variant = "default", className = "", ...props }) {
                       authToken: null,
                       isAdmin: false,
                     },
-                    true
+                    true,
                   );
                 }}
               >

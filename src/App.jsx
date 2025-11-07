@@ -4,7 +4,6 @@ import Layout from "./layout/Layout";
 import LoginScreen from "./pages/login";
 import { AuthWrapper } from "./AuthWrapper";
 import constants from "./utils/constants";
-import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import DeepFakeAnalysis from "./pages/deepFakeAnalysis/DeepFakeAnalysis";
 import History from "./pages/deepFakeAnalysis/History";
@@ -25,7 +24,6 @@ export default function App() {
               </AuthWrapper>
             }
           >
-            <Route path={constants.route.dashboard} element={<Dashboard />} />
             <Route path={constants.route.profile} element={<Profile />} />
             <Route
               path={constants.route.deepfakeAnalysis}
@@ -35,7 +33,7 @@ export default function App() {
           </Route>
 
           {/* Fallback */}
-          <Route path="*" element={<Dashboard />} />
+          <Route path="*" element={<DeepFakeAnalysis />} />
         </Routes>
       </AppProvider>
     </BrowserRouter>

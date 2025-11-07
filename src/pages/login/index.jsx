@@ -26,7 +26,7 @@ const LoginScreen = () => {
       },
       true,
     );
-    navigate(constants.route.dashboard);
+    navigate(constants.route.deepfakeAnalysis);
   };
 
   const handleGoogleLoginError = () => {
@@ -46,11 +46,11 @@ const LoginScreen = () => {
               Welcome to FaceGuard
             </h1>
             <p className="text-base lg:text-md text-primary-100">
-              Our platform analyzes image artifacts, generation traces, and model
-              fingerprints to tell you whether an image is AI-generated or
+              Our platform analyzes image artifacts, generation traces, and
+              model fingerprints to tell you whether an image is AI-generated or
               authentic. Get clear, explainable results, keep your data private,
-              and act with confidence. Log in to start protecting your content and
-              community.
+              and act with confidence. Log in to start protecting your content
+              and community.
             </p>
             <div className="bg-primary-600 bg-opacity-30 p-4 lg:p-6 rounded-lg border border-primary-500 border-opacity-30 backdrop-blur-sm space-y-2 lg:space-y-3">
               <h2 className="text-sm lg:text-base font-semibold text-primary-200 ">

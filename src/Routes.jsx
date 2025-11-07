@@ -7,7 +7,6 @@ import { Navigate } from "react-router-dom";
 import { AppContext } from "./context/AppContext";
 import Utils from "./utils/utils";
 import constants from "./utils/constants";
-import Dashboard from "./pages/dashboard";
 import Profile from "./pages/profile";
 import Loading from "./components/ui/Loading";
 import LazyLoading from "./components/ui/LazyLoading";
@@ -20,7 +19,7 @@ const PublicRoute = ({ children }) => {
   const token =
     contextValues.store.authToken ?? Utils.getCachedVariables("authToken");
   if (token) {
-    return <Navigate to={constants.route.dashboard} />;
+    return <Navigate to={constants.route.deepfakeAnalysis} />;
   }
   return children;
 };
@@ -33,7 +32,7 @@ const HomeRedirect = () => {
 
   useEffect(() => {
     if (token) {
-      navigate(constants.route.dashboard);
+      navigate(constants.route.deepfakeAnalysis);
     } else {
       navigate(constants.route.login);
     }
@@ -50,7 +49,7 @@ const NotFoundRedirect = () => {
 
   useEffect(() => {
     if (token) {
-      navigate(constants.route.dashboard);
+      navigate(constants.route.deepfakeAnalysis);
     } else {
       navigate(constants.route.login);
     }
@@ -81,14 +80,6 @@ const Routes = () => {
             <PublicRoute>
               <LoginScreen />
             </PublicRoute>
-          }
-        />
-        <Route
-          path={constants.route.dashboard}
-          element={
-            <AuthWrapper>
-              <Dashboard />
-            </AuthWrapper>
           }
         />
         <Route

@@ -20,48 +20,29 @@ export const AppProvider = ({ children }) => {
   const navigate = useNavigate();
   const shownErrorStatusSet = new Set();
 
+  React.useEffect(() => {
+    const cachedVariables = Utils.getCachedVariables();
+    setStore(cachedVariables);
+  }, []);
+
   const setStore = (data = {}, cache = false) => {
-    try {
-      updateStore((prevStore) => ({ ...prevStore, ...data }));
-      if (cache) {
-        for (const key of Object.keys(data)) {
-          const value = data?.[key];
-          if (value || value === false || value === 0) {
-            Utils.cacheStorage.setItem(
-              window.btoa(key),
-              Utils.isObject(value)
-                ? Utils.toBase64Unicode(JSON.stringify(value))
-                : window.btoa(value)
-            );
-          } else {
-            Utils.cacheStorage.removeItem(window.btoa(key));
-          }
+    updateStore((prevStore) => ({ ...prevStore, ...data }));
+    if (cache) {
+      for (const key of Object.keys(data)) {
+        const value = data?.[key];
+        if (value || value === false || value === 0) {
+          Utils.cacheStorage.setItem(
+            window.btoa(key),
+            Utils.isObject(value)
+              ? Utils.toBase64Unicode(JSON.stringify(value))
+              : window.btoa(value),
+          );
+        } else {
+          Utils.cacheStorage.removeItem(window.btoa(key));
         }
       }
-    } catch (error) {
-      console.error("Failed to set store and cache data:", error);
     }
   };
-
-  React.useEffect(() => {
-    try {
-      const cachedVariables = Utils.getCachedVariables();
-      setStore(
-        {
-          ...cachedVariables,
-          initialLoadComplete: true,
-          isLoading: false,
-        },
-        true
-      );
-    } catch (error) {
-      console.error("Failed to retrieve cached variables:", error);
-      setStore({
-        initialLoadComplete: true,
-        isLoading: false,
-      });
-    }
-  }, []);
 
   const apiRequest = async ({
     method = "GET",
@@ -131,7 +112,7 @@ export const AppProvider = ({ children }) => {
           headerAction: false,
           bottomNavigationBarAction: false,
         },
-        true
+        true,
       );
       navigate(constants.route.login);
       window.history.pushState(null, document.title, window.location.href);
@@ -148,6 +129,19 @@ export const AppProvider = ({ children }) => {
       console.log(error);
     }
   };
+
+  React.useEffect(() => {
+    const cachedVariables = Utils.getCachedVariables();
+
+    setStore(
+      {
+        ...cachedVariables,
+        initialLoadComplete: true,
+        isLoading: false,
+      },
+      true,
+    );
+  }, []);
 
   return (
     <AppContext.Provider

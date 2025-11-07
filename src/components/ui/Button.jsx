@@ -8,7 +8,7 @@ const CommonButton = ({
   disabled = false,
   type = "button",
   title = "",
-  ...props
+  ...otherProps // Collect all other props here
 }) => {
   const sizeMap = {
     xs: "small",
@@ -58,7 +58,7 @@ const CommonButton = ({
       disabled={disabled}
       size={sizeMap[size] || "middle"}
       className={`${buttonClasses} flex justify-center items-center`}
-      {...props}
+      {...otherProps}
     >
       {title}
     </Button>

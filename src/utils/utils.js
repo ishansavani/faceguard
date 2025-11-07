@@ -38,7 +38,7 @@ export default class Utils {
               : decodedValue;
           } else {
             cachedVariables[item] = this.isJSONString(
-              decodeURIComponent(itemValue)
+              decodeURIComponent(itemValue),
             )
               ? JSON.parse(decodeURIComponent(itemValue))
               : decodeURIComponent(itemValue);
@@ -78,21 +78,6 @@ export default class Utils {
     );
   };
 
-  static getBase64URIsFromMarkdown = (markdown) => {
-    const regex =
-      /\[(.*?)\]\(['"]?(data:[^;]+\/[^;]+;base64,[^)'"\\\r\n]+)['"]?\)/g;
-    const resultArray = [];
-    let match;
-
-    while ((match = regex.exec(markdown)) !== null) {
-      resultArray.push({
-        name: match[1],
-        uri: match[2],
-      });
-    }
-    return resultArray;
-  };
-
   static replaceBase64WithUrls = (content, fileData) => {
     const imageExtensions = [
       ".png",
@@ -110,7 +95,7 @@ export default class Utils {
         const fileInfo = fileData?.find((item) => item.name === fileName);
         if (fileInfo) {
           const isImage = imageExtensions.includes(
-            fileInfo?.ext?.toLowerCase()
+            fileInfo?.ext?.toLowerCase(),
           );
           return isImage
             ? `[${fileName}](${fileInfo.url})`
@@ -148,27 +133,8 @@ export default class Utils {
     return formatted;
   };
 
-  static convertProxyToS3Url(url) {
-    if (!url || typeof url !== "string") return "";
-
-    try {
-      if (url.includes("/api/image-proxy")) {
-        const urlObj = new URL(url, window.location.origin);
-        const encodedS3Url = urlObj.searchParams.get("url");
-        if (encodedS3Url) {
-          return decodeURIComponent(encodedS3Url);
-        }
-        return "";
-      }
-
-      if (url.includes("eternitai-image.s3.amazonaws.com")) {
-        return url;
-      }
-
-      return url;
-    } catch (error) {
-      console.error("Failed to normalize image URL:", error);
-      return "";
-    }
+  static toPercentage(value, decimals = 2) {
+    if (typeof value !== "number" || isNaN(value)) return "Invalid number";
+    return `${(value * 100).toFixed(decimals)}%`;
   }
 }
