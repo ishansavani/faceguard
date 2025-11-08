@@ -1,39 +1,31 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProvider } from "./context/AppContext";
-import Layout from "./layout/Layout";
 import LoginScreen from "./pages/login";
-import { AuthWrapper } from "./AuthWrapper";
 import constants from "./utils/constants";
 import Profile from "./pages/profile";
 import DeepFakeAnalysis from "./pages/deepFakeAnalysis/DeepFakeAnalysis";
 import History from "./pages/deepFakeAnalysis/History";
+import LandingPage from "./pages/landing";
+import ProtectedLayout from "./layout/ProtectedLayout";
 
 export default function App() {
   return (
     <BrowserRouter>
       <AppProvider>
         <Routes>
-          {/* Public route */}
+          {/* Public routes */}
+          <Route path="/" element={<LandingPage />} />
           <Route path={constants.route.login} element={<LoginScreen />} />
 
-          {/* Protected routes inside Layout */}
-          <Route
-            element={
-              <AuthWrapper>
-                <Layout />
-              </AuthWrapper>
-            }
-          >
-            <Route path={constants.route.profile} element={<Profile />} />
+          {/* Protected routes */}
+          <Route element={<ProtectedLayout />}>
             <Route
               path={constants.route.deepfakeAnalysis}
               element={<DeepFakeAnalysis />}
             />
             <Route path={constants.route.history} element={<History />} />
+            <Route path={constants.route.profile} element={<Profile />} />
           </Route>
-
-          {/* Fallback */}
-          <Route path="*" element={<DeepFakeAnalysis />} />
         </Routes>
       </AppProvider>
     </BrowserRouter>

@@ -156,11 +156,12 @@ const Table = ({
             className="p-4 text-center text-sm text-gray-500"
           >
             <div className="flex flex-col items-center justify-center">
-              <Image
-                src={"/assets/no-data.svg"}
+              <img
+                src="/assets/no-data.svg"
                 alt="No Data"
-                className="w-1/6"
+                className="mb-2 w-40 h-40 object-contain"
               />
+              <p className="text-gray-700 font-medium">No data available.</p>
             </div>
           </td>
         </tr>

@@ -12,6 +12,7 @@
     "axios": "^1.13.2",
     "dayjs": "^1.11.19",
     "dompurify": "^3.3.0",
+    "framer-motion": "^12.23.24",
     "jwt-decode": "^4.0.0",
     "lucide-react": "^0.552.0",
     "react": "^19.2.0",

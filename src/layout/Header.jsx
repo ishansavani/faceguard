@@ -103,7 +103,7 @@ function Header({ variant = "default", className = "", ...props }) {
             {/* Desktop Navigation */}
             <nav
               className={`${isMobileMenuOpen ? "hidden" : "block"} 
-              md:flex justify-center ml-4`}
+              md:flex justify-center`}
             >
               <div
                 className="px-3 py-2 rounded-md text-sm md:text-lg 

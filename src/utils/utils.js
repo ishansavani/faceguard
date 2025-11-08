@@ -137,4 +137,12 @@ export default class Utils {
     if (typeof value !== "number" || isNaN(value)) return "Invalid number";
     return `${(value * 100).toFixed(decimals)}%`;
   }
+
+  static toSnakeCase(text) {
+    return text
+      .replace(/[^a-zA-Z0-9]+/g, " ") // Replace non-alphanumeric chars with space
+      .trim() // Remove extra spaces
+      .toLowerCase() // Convert to lowercase
+      .replace(/\s+/g, "_"); // Replace spaces with underscores
+  }
 }

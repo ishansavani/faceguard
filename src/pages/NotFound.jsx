@@ -1,7 +1,6 @@
-import React from "react";
 import { Link } from "react-router-dom";
 import Icon from "../components/AppIcon";
-import constants from "utils/constants";
+import constants from "../utils/constants";
 
 const NotFound = () => {
   return (

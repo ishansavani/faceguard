@@ -4,11 +4,14 @@ const constants = {
   GOOGLE_CLIENT_ID:
     "666482273939-9lo9b735msahro0t5ipopq3rhl57olr9.apps.googleusercontent.com",
   api: {
+    deepfakeAnalysis: `${apiPort}/predict`,
     history: `${apiPort}/history`,
+    deleteHistory: `${apiPort}/delete-history`,
+    getImages: `${apiPort}/uploads`,
   },
 
   route: {
-    default: "",
+    default: "/",
     login: "/login",
     deepfakeAnalysis: "/deepfake-analysis",
     history: "/history",
